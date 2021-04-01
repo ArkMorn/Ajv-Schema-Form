@@ -205,13 +205,21 @@ export default defineComponent({
                   customValidate={demo.customValidate}
                 />
               </ThemeProvider> */}
-              {/* <SchemaForm
+              {
+                <SchemaForm
+                  schema={demo.schema!}
+                  onChange={handleChange}
+                  value={demo.data}
+                />
+
+                /* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}
                 onChange={handleChange}
                 contextRef={methodRef}
                 value={demo.data}
-              /> */}
+              /> */
+              }
               {/* <button onClick={validateForm}>校 验</button> */}
             </div>
           </div>
