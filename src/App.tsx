@@ -207,7 +207,7 @@ export default defineComponent({
               </ThemeProvider> */}
               {
                 <SchemaForm
-                  schema={demo.schema!}
+                  schema={demo.schema}
                   onChange={handleChange}
                   value={demo.data}
                 />

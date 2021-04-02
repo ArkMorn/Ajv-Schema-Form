@@ -2,31 +2,18 @@
 
 export default {
   name: 'Demo',
-  schema: {
-    type: 'object',
-  },
   uiSchema: {},
-  // schema: {
-  //   type: 'object',
-  //   properties: {
-  //     pass1: {
-  //       type: 'string',
-  //       // minLength: 10,
-  //       test: true,
-  //       title: 'password',
-  //     },
-  //     pass2: {
-  //       type: 'string',
-  //       minLength: 10,
-  //       title: 're try password',
-  //     },
-  //     color: {
-  //       type: 'string',
-  //       format: 'color',
-  //       title: 'Input Color',
-  //     },
-  //   },
-  // },
+  schema: {
+    type: 'array',
+    items: [
+      {
+        type: 'string',
+      },
+      {
+        type: 'number',
+      },
+    ],
+  },
   // async customValidate(data: any, errors: any) {
   //   return new Promise((resolve) => {
   //     setTimeout(() => {

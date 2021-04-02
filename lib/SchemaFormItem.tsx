@@ -4,6 +4,7 @@ import { retrieveSchema } from './utils'
 import StringField from './fields/StringField'
 import NumberField from './fields/NumberField'
 import ObjectField from './fields/ObjectField'
+import ArrayField from './fields/ArrayField'
 export default defineComponent({
   name: 'SchemaFormItem',
   props: FiledPropsDefine,
@@ -17,7 +18,7 @@ export default defineComponent({
     return () => {
       const retrievedSchemaRef = retrieveSchemaRef.value
       const schema = props.schema
-      const type = (schema as any).type
+      const type = schema.type
       let Component: any
       switch (type) {
         case SchemaTypes.STRING: {
@@ -30,6 +31,10 @@ export default defineComponent({
         }
         case SchemaTypes.OBJECT: {
           Component = ObjectField
+          break
+        }
+        case SchemaTypes.ARRAY: {
+          Component = ArrayField
           break
         }
         default: {
