@@ -4,6 +4,15 @@ export default {
   name: 'Demo',
   schema: {
     type: 'object',
+    properties: {
+      firstName: {
+        type: 'string',
+        default: 'chunk',
+      },
+      lastName: {
+        type: 'number',
+      },
+    },
   },
   uiSchema: {},
   // schema: {

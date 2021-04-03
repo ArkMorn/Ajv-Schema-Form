@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { PropType } from 'vue'
+import { PropType,defineComponent } from 'vue'
 
 export enum SchemaTypes {
     'NUMBER' = 'number',
@@ -67,3 +67,8 @@ export const FiledPropsDefine = {
         required: true,
     },
 } as const
+const TypeHelperComponent=defineComponent({
+    props:FiledPropsDefine
+})
+
+export type CommonFieldType=typeof TypeHelperComponent
