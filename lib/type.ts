@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { PropType,defineComponent } from 'vue'
+import { defineComponent, PropType,DefineComponent } from 'vue'
 
 export enum SchemaTypes {
     'NUMBER' = 'number',
@@ -67,8 +67,46 @@ export const FiledPropsDefine = {
         required: true,
     },
 } as const
-const TypeHelperComponent=defineComponent({
-    props:FiledPropsDefine
+
+const TypeHelperComponent = defineComponent({
+    props: FiledPropsDefine
 })
 
-export type CommonFieldType=typeof TypeHelperComponent
+export type CommonFieldType = typeof TypeHelperComponent
+
+
+export const CommonWidgetsPropsDefine={
+    value:{},
+    onChange:{
+        type:Function as PropType<(v:any)=>void>,
+        required:true
+    }
+} as const 
+export const SelectWidgetPropsDefine={
+    ...CommonWidgetsPropsDefine,
+    options:{
+        type:Array as PropType<{
+            label:string,
+            value:any
+        }[]>,
+        required:true
+    }
+} as const 
+
+export type CommonWidgetsDefine=DefineComponent<typeof CommonWidgetsPropsDefine,{},{}>
+
+export type SelectWidgetDefine=DefineComponent<typeof SelectWidgetPropsDefine,{},{}>
+
+export enum widgetsName{
+    SelectionWidget='Selection',
+    TextWidget='TextWidget',
+    NumberWidget='NumberWidget'
+}
+
+export interface Theme {
+    widgets:{
+    [widgetsName.SelectionWidget]:SelectWidgetDefine,
+    [widgetsName.TextWidget]:CommonWidgetsDefine
+    [widgetsName.NumberWidget]:CommonWidgetsDefine
+    }
+}

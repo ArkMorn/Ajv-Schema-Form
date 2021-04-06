@@ -6,7 +6,8 @@ import MonacoEditor from './components/MonacoEditor'
 import demos from './demos'
 
 import SchemaForm from '../lib'
-// import themeDefault from '../lib/theme-default'
+import ThemeProvider from '../lib/theme'
+import themeDefault from '../lib/theme-default'
 
 // import customFormat from './plugins/customFormat'
 // import customKeywords from './plugins/customKeyword'
@@ -112,6 +113,7 @@ export default defineComponent({
     const classesRef = useStyles()
 
     const handleChange = (v: any) => {
+      console.log('v', v)
       demo.data = v
       demo.dataCode = toJson(v)
     }
@@ -206,12 +208,13 @@ export default defineComponent({
                 />
               </ThemeProvider> */}
               {
-                <SchemaForm
-                  schema={demo.schema!}
-                  onChange={handleChange}
-                  value={demo.data}
-                />
-
+                <ThemeProvider theme={themeDefault}>
+                  <SchemaForm
+                    schema={demo.schema}
+                    onChange={handleChange}
+                    value={demo.data}
+                  />
+                </ThemeProvider>
                 /* <SchemaForm
                 schema={demo.schema!}
                 uiSchema={demo.uiSchema!}
