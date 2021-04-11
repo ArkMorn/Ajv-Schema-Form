@@ -5,8 +5,16 @@ import {
   PropType,
   provide,
   ComputedRef,
+  ExtractPropTypes,
+  ref,
 } from 'vue'
-import { Theme, widgetsName } from './type'
+import {
+  Theme,
+  widgetsName,
+  FiledPropsDefine,
+  CommonWidgetsDefine,
+} from './type'
+import { isObject } from './utils'
 
 const THEME_PROVIDER_KEY = Symbol()
 export const ThemProvider = defineComponent({
@@ -30,10 +38,19 @@ export const ThemProvider = defineComponent({
   },
 })
 
-export function getWidget<T extends widgetsName>(name: T) {
+export function getWidget<T extends widgetsName>(
+  name: T,
+  props?: ExtractPropTypes<typeof FiledPropsDefine>,
+) {
   const context: ComputedRef<Theme> | undefined = inject<ComputedRef<Theme>>(
     THEME_PROVIDER_KEY,
   )
+  if (props) {
+    const { uiSchema } = props
+    if (uiSchema.widget && isObject(uiSchema.widget)) {
+      return ref(uiSchema.widget as CommonWidgetsDefine)
+    }
+  }
   if (!context) {
     throw new Error('不存在context!')
   }

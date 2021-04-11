@@ -213,6 +213,9 @@ export default defineComponent({
                     schema={demo.schema}
                     onChange={handleChange}
                     value={demo.data}
+                    contextRef={contextRef}
+                    uiSchema={demo.uiSchema || {}}
+                    customValidate={demo.customValidate}
                   />
                 </ThemeProvider>
                 /* <SchemaForm

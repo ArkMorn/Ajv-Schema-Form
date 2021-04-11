@@ -128,23 +128,27 @@ export default defineComponent({
     return () => {
       const Selection = SelectionRef.value
       const { SchemaFormItem } = useVJSFContext()
-      const { value, schema, rootSchema } = props
+      const { value, schema, rootSchema, uiSchema } = props
       const arr = Array.isArray(value) ? value : []
       const isMultiType = Array.isArray(schema.items)
       const isSelect = schema.items && (schema.items as any).enum
       if (isMultiType) {
-        const list: Schema[] = schema.items as any
-        return list.map((s: Schema, index: number) => {
+        const items: Schema[] = schema.items as any
+        const arr = Array.isArray(value) ? value : []
+        return items.map((s: Schema, index: number) => {
+          const itemsUiSchema = uiSchema.items
+          const us = Array.isArray(itemsUiSchema)
+            ? itemsUiSchema[index] || {}
+            : itemsUiSchema || {}
           return (
             <SchemaFormItem
-              key={index}
-              onChange={(v: any) => {
-                handleArrayChange(v, index)
-              }}
-              value={arr[index]}
               schema={s}
+              uiSchema={us}
+              key={index}
               rootSchema={rootSchema}
-            ></SchemaFormItem>
+              value={arr[index]}
+              onChange={(v: any) => handleArrayChange(v, index)}
+            />
           )
         })
       } else if (!isSelect) {
@@ -162,6 +166,7 @@ export default defineComponent({
                 onChange={(v: any) => {
                   handleArrayChange(v, index)
                 }}
+                uiSchema={(uiSchema.items as any) || {}}
                 value={v}
                 schema={schema.items as Schema}
                 rootSchema={rootSchema}
@@ -182,6 +187,7 @@ export default defineComponent({
             value={props.value}
             onChange={props.onChange}
             options={options}
+            schema={props.schema}
           ></Selection>
         )
       }
